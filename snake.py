@@ -8,7 +8,7 @@ class Snake:
     LEFT = 3
     STOPED = 4
     DEFAULT_COLOR = (17, 243, 255)
-    DEFAULT_SIZE = (10, 10)
+    DEFAULT_SIZE = (20, 20)
 
     def __init__(self, color=DEFAULT_COLOR, direction=LEFT, size=DEFAULT_SIZE):
         self.__size_reference = size[0]
@@ -33,6 +33,12 @@ class Snake:
 
     def death(self):
         self.__alive = False
+
+    def sleep(self):
+        self.__alive = False
+
+    def wake_up(self):
+        self.__alive = True
 
     def __validate_new_direction(self, direction):
         opposite_direction = abs(self.__direction - direction) == 2

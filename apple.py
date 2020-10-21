@@ -9,7 +9,7 @@ def generate_random_position_on_grid():
 
 
 class Apple:
-    DEFAULT_SIZE = (10, 10)
+    DEFAULT_SIZE = (20, 20)
 
     def __init__(self, size=DEFAULT_SIZE):
 
