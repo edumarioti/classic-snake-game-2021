@@ -1,3 +1,5 @@
+from random import randint
+
 import pygame
 
 
@@ -27,10 +29,6 @@ class Snake:
     def positions(self):
         return self.__positions[:]
 
-    def new_direction(self, direction):
-        if self.__validate_new_direction(direction):
-            self.__direction = direction
-
     def death(self):
         self.__alive = False
 
@@ -40,29 +38,41 @@ class Snake:
     def wake_up(self):
         self.__alive = True
 
+    def new_direction(self, direction):
+        if self.__validate_new_direction(direction):
+            self.__direction = direction
+
     def __validate_new_direction(self, direction):
-        opposite_direction = abs(self.__direction - direction) == 2
-        return not opposite_direction
+
+        new_first_position = self.__return_new_position_according_to_direction(direction)
+        second_segment_position = self.__positions[1]
+        opposite_direction_actual = new_first_position == second_segment_position
+
+        return not opposite_direction_actual
 
     def move(self):
         if self.__alive:
-            if self.__direction == Snake.UP:
-                new_position_x = self.__positions[0][0]
-                new_position_y = self.__positions[0][1] - self.__size_reference
+            self.__positions[0] = self.__return_new_position_according_to_direction(self.__direction)
 
-            if self.__direction == Snake.RIGHT:
-                new_position_x = self.__positions[0][0] + self.__size_reference
-                new_position_y = self.__positions[0][1]
+    def __return_new_position_according_to_direction(self, direction):
 
-            if self.__direction == Snake.DOWN:
-                new_position_x = self.__positions[0][0]
-                new_position_y = self.__positions[0][1] + self.__size_reference
+        if direction == Snake.UP:
+            new_position_x = self.__positions[0][0]
+            new_position_y = self.__positions[0][1] - self.__size_reference
 
-            if self.__direction == Snake.LEFT:
-                new_position_x = self.__positions[0][0] - self.__size_reference
-                new_position_y = self.__positions[0][1]
+        elif direction == Snake.RIGHT:
+            new_position_x = self.__positions[0][0] + self.__size_reference
+            new_position_y = self.__positions[0][1]
 
-            self.__positions[0] = (new_position_x, new_position_y)
+        elif direction == Snake.DOWN:
+            new_position_x = self.__positions[0][0]
+            new_position_y = self.__positions[0][1] + self.__size_reference
+
+        if direction == Snake.LEFT:
+            new_position_x = self.__positions[0][0] - self.__size_reference
+            new_position_y = self.__positions[0][1]
+
+        return tuple((new_position_x, new_position_y))
 
     def update_positions(self):
         if self.__alive:
@@ -76,3 +86,7 @@ class Snake:
     def ate_apple(self):
         self.__positions.append((700, 700))
         self.__score = len(self.__positions)
+
+    def bonus_mixed_color(self):
+        color = (randint(20, 255), randint(20, 255), randint(20, 255))
+        self.surface.fill(color)
