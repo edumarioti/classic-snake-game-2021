@@ -23,3 +23,7 @@ def plot_in_surface(snake, apple, screen):
     screen.blit(apple.surface, apple.position)
 
 
+def score_is_multiple_of_ten(score):
+    return score % 10 == 0
+
+

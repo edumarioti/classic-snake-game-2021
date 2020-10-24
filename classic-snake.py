@@ -18,6 +18,7 @@ WHITE = (255, 255, 255)
 GRAY = (20, 20, 20)
 
 pygame.init()
+
 screen = pygame.display.set_mode((600, 600))
 icon = pygame.image.load('media/snake.png')
 
@@ -29,12 +30,9 @@ font200 = pygame.font.SysFont('ISOCPEUR', 130, 0)
 
 status = PAGE_INIT
 
-snake = Snake()
-apple = Apple()
+clock = pygame.time.Clock()
 
 running = True
-
-clock = pygame.time.Clock()
 
 while running:
 
@@ -97,10 +95,9 @@ while running:
             snake.death()
             status = GAME_OVER
 
-        score_multiple_of_ten = snake.score % 10 == 0
-        if score_multiple_of_ten:
+        if score_is_multiple_of_ten(snake.score):
             snake.bonus_mixed_color()
-    
+
         plot_in_surface(snake, apple, screen)
 
         message_score = f"SCORE: {snake.score}"
