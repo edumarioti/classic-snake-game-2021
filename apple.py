@@ -18,5 +18,18 @@ class Apple:
         self.surface = pygame.Surface(size)
         self.surface.fill(color)
 
-    def new_position(self):
-        self.position = generate_random_position_on_grid()
+    def new_position(self, snake_positions):
+        possible_position = False
+
+        while not possible_position:
+
+            possible_position = True
+
+            new_position = generate_random_position_on_grid()
+
+            for current_segment_position in snake_positions:
+                if new_position == current_segment_position:
+                    print('Maçã iria aparecer no meio!!!')
+                    possible_position = False
+        
+        self.position = new_position

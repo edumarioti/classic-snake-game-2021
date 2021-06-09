@@ -11,7 +11,7 @@ def collision_between_body(snake_positions):
 
 def collision_on_the_wall(position_head):
     for position in position_head:
-        if position < 0 or position > 600:
+        if position < 0 or position > 580:
             return True
     return False
 

@@ -19,6 +19,7 @@ GRAY = (20, 20, 20)
 
 pygame.init()
 
+
 screen = pygame.display.set_mode((600, 600))
 icon = pygame.image.load('media/snake.png')
 
@@ -33,6 +34,8 @@ status = PAGE_INIT
 clock = pygame.time.Clock()
 
 running = True
+
+record = 0
 
 while running:
 
@@ -88,7 +91,7 @@ while running:
         snake.move()
 
         if collision(snake.positions[0], apple.position):
-            apple.new_position()
+            apple.new_position(snake.positions)
             snake.ate_apple()
 
         if collision_between_body(snake.positions) or collision_on_the_wall(snake.positions[0]):
@@ -105,22 +108,27 @@ while running:
         screen.blit(text_score, (15, 10))
 
     if status == GAME_OVER:
+        if snake.score > record:
+            record = snake.score
+
         plot_in_surface(snake, apple, screen)
 
         message_game = f"GAME"
         message_over = f"OVER"
         message_score = f"SCORE = {snake.score}"
         message_restart = f"Press space for restart!"
+        message_record = f"RECORD = {record}"
 
         text_game = font200.render(message_game, 1, WHITE)
         text_over = font200.render(message_over, 1, WHITE)
         text_score = font30.render(message_score, 1, WHITE)
         text_restart = font30.render(message_restart, 1, WHITE)
+        text_record = font30.render(message_record, 1, WHITE)
 
         screen.blit(text_game, (160, 150))
         screen.blit(text_over, (170, 250))
         screen.blit(text_score, (250, 400))
-        screen.blit(text_restart, (185, 425))
+        screen.blit(text_restart, (185, 450))
 
     if status == PAUSED:
         snake.sleep()
