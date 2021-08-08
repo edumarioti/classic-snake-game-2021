@@ -17,6 +17,7 @@ ESC = 27
 WHITE = (255, 255, 255)
 GRAY = (20, 20, 20)
 
+
 pygame.init()
 
 
@@ -51,7 +52,7 @@ while running:
 
             if event.key == ENTER and status == PAGE_INIT:
                 status = START
-            if event.key == SPACE and status == GAME_OVER:
+            if event.key == ENTER and status == GAME_OVER:
                 status = START
             if event.key == ESC and status == STARTED:
                 status = PAUSED
@@ -128,6 +129,7 @@ while running:
         screen.blit(text_game, (160, 150))
         screen.blit(text_over, (170, 250))
         screen.blit(text_score, (250, 400))
+        screen.blit(text_record, (240, 425))
         screen.blit(text_restart, (185, 450))
 
     if status == PAUSED:
